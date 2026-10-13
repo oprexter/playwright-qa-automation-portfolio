@@ -1,0 +1,228 @@
+
+step 1 : create a new folder for playwright project  and open in vs code 
+
+step 2 : create a python virtual env for this project using below command 
+	 
+	 python -m venv my_env 
+
+step 3 : to activate the env use below
+
+	my_env\scripts\activate
+
+step 4 : once env active then inside run below command 
+
+	pip install playwright (this is useful for python to talk to browser)
+
+(optional) to upgrade playwright use this command -->pip install playwright -u
+
+step 5 : now we need to install actual browsers(Chromium, Firefox, and WebKit)
+	 that can be used by python to run test runner for that run below command 
+	 
+         playwright install
+
+step 6 : verify installation by running below command 
+
+	python -m playwright --version or playwright --version 	  
+
+step 7 : run below command to install pytest plugin for playwright and testing framework in python
+
+	 pip install pytest-playwright ...(if you directly run this command you can skip 4)
+
+         .....(you can use this command pip list to list down all packages downloaded and 
+	      also if you use this command pip show pytest it will give you detailed description of it)
+
+step 8 : now the setup is ready , now create a folder inside your playwright project give name tests
+
+step 9 : create a python file name test_google.py ,inside this file write code on how to 
+
+	 open google and write anything on search bar and click search (code already created using chat gpt please refer test_google.py inside Plywright_learning folder)
+
+step 10: after the code is successfully created and run 
+
+	 run this command pytest --help   (it will help you  give tags that can be run along, when running the code from terminal ..for eg: pytest tests\test_google.py --browser=chromium)
+
+step 11: create folders inside root folder (playwright learning) utils, pages, reports and tests..(ignore tests if already created in step 8)
+
+step 12: create conftest.py file under root folder (playwright learning)
+
+         (about conftest.py imagine you are testing 10 different websites 
+
+         without conftest.py you would need to write this same code in every test file 
+
+         this repeating code is not good practice
+
+         with conftest.py we define that once as a fixture and just use it in tests)
+
+step 13: then watch this video to understand pom 
+
+	 https://www.youtube.com/watch?v=h-fpoNZdWCg&t=1666s
+
+
+	 
+
+ 
+
+
+--------------------understanding confitest-------------------------
+
+when pytest fixture (scope)
+🟢 Case 1 — scope="function" (default)
+
+This is the flow you described.
+
+Test 1 → setup → run → teardown
+Test 2 → setup → run → teardown
+Test 3 → setup → run → teardown
+
+
+Fixture runs for every test.
+
+🔵 Case 2 — scope="session" (Your Case)
+
+Your login fixture runs only once.
+
+Actual flow:
+
+pytest starts
+   ↓
+session setup runs once (login)
+   ↓
+Test 1 → run test
+Test 2 → run test
+Test 3 → run test
+   ↓
+session teardown runs once (logout)
+
+
+#how fixtures run 
+
+1. Find all tests
+2. For each test → check what fixtures it needs
+3. If test needs a fixture → prepare fixture (based on scope)
+4. scope sesssion is run once 
+5. Run test
+
+---------------------------------------------------------------
+
+to understand the flow of pytest with fixture scope function and session 
+
+
+⭐ How Pytest Actually Runs Them
+
+Assume test order is:
+
+test A
+test B
+test C
+test D
+
+
+Pytest runs in this order:
+
+✅ Step 1 — Start pytest
+Load fixtures
+Load hooks
+Find tests
+
+✅ Step 2 — Run test A
+Does test A need session fixture?
+YES → run session fixture (first time)
+→ execute test A
+
+
+Session fixture is now created and kept alive.
+
+✅ Step 3 — Run test B
+Does test B need session fixture?
+YES → reuse existing session fixture
+→ execute test B
+
+
+No new fixture run.
+
+✅ Step 4 — Run test C
+Does test C need session fixture?
+YES → reuse same session fixture
+→ execute test C
+
+
+Still same fixture.
+
+✅ Step 5 — Run test D
+Does test D need function fixture?
+YES → run function fixture
+→ execute test D
+→ teardown function fixture immediately
+
+
+Function scope = per test.
+
+✅ Step 6 — After All Tests
+Session fixture teardown runs once
+
+
+Example:
+
+logout
+close browser
+
+🎯 Real Flow (Visual Timeline)
+pytest starts
+↓
+session fixture runs once
+↓
+test A
+↓
+test B
+↓
+test C
+↓
+function fixture runs
+↓
+test D
+↓
+function fixture cleanup
+↓
+session fixture cleanup
+
+so,
+
+pytest runs tests one by one.
+For each test it checks required fixtures.
+Session fixture runs once and is reused.
+Function fixture runs per test.
+Session teardown runs at end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+FAQ
+
+pip install playwright
+→ Helps Python talk to and control the browser (open pages, click, type, etc.)
+
+pip install pytest-playwright
+→ Provides pytest as the test runner and connects pytest tests to Playwright,
+so the steps written in pytest tests are executed in the browser by Playwright
+
+playwright install
+→ Installs actual browser binaries like Chromium, Firefox, and WebKit
+

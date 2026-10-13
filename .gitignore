@@ -1,0 +1,30 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
+
+# Test reports and execution artifacts
+allure-results/
+allure-report/
+playwright-report/
+test-results/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE settings
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
