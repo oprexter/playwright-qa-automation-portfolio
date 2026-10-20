@@ -1,0 +1,41 @@
+what is pycache 
+
+
+In your Playwright + Pytest automation project, __pycache__ is a folder created automatically by Python to store compiled Python files. It helps Python load modules more efficiently.
+
+. What does __pycache__ contain?
+For example, your project might look like this:
+playwright-qa-automation-portfolio/
+
+pages/
+
+tests/
+
+pycache/Auto-generated
+
+login.cpython-312.pyc
+
+test_login.cpython-312.pyc
+
+
+conftest.py
+
+config.json
+
+The .pyc files contain Python bytecode generated from your .py files. The cpython-312 part indicates CPython 3.12.
+
+
+2. Why does Python create it?
+When Python imports a module, it can compile the source code into bytecode and cache it in __pycache__.
+For example:
+1. Your test imports a page object from pages/login.py.
+2. Python compiles the module when needed.
+3. Python stores the compiled bytecode in __pycache__.
+4. Python may reuse that cached bytecode during a later run.
+
+
+(bytecode is basically a low level code for Python's virtual machine)
+
+Can you delete __pycache__?
+Yes. You can safely delete it while your project is not running. Python will recreate it when needed.
+You generally don't need to commit it to GitHub. Add these entries to your .gitignore file:

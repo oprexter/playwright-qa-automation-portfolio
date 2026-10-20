@@ -1,0 +1,6 @@
+{
+  "base_url": "https://www.saucedemo.com/inventory.html",
+  "username": "standard_user",
+  "password": "secret_sauce",
+  "login_url": "https://www.saucedemo.com/"
+}
