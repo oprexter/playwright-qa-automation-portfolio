@@ -18,12 +18,25 @@ The project focuses on building a maintainable automation framework using the **
 
 ## Current Test Coverage
 
+## Test Cases
+
 ### Login Module
 
 | Test Case | Description | Status |
 |---|---|---|
 | LOGIN-001 | Verify login with valid credentials | Implemented |
 | LOGIN-002 | Verify login with invalid credentials | Implemented |
+
+### Inventory Module
+
+| Test Case | Description | Status |
+|---|---|---|
+| INV-001 | Verify the total product count | Implemented |
+| INV-002 | Verify product details (name, description, price, and image) | Implemented |
+| INV-003 | Verify products are sorted by name in ascending order | Implemented |
+| INV-004 | Verify products are sorted by name in descending order | Implemented |
+| INV-005 | Verify products are sorted by price from low to high | Implemented |
+| INV-006 | Verify products are sorted by price from high to low | Implemented |
 
 Additional login scenarios and functional modules will be added as the project evolves.
 
